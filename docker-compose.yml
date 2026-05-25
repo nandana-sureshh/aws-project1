@@ -193,7 +193,7 @@ services:
     environment:
       # Runtime variable — injected into nginx.conf by envsubst at container start.
       # Must be the DNS hostname of the Internal ALB (without http:// prefix).
-      INTERNAL_ALB_DNS: ${INTERNAL_ALB_DNS:-localhost}
+      INTERNAL_ALB_DNS: ${INTERNAL_ALB_DNS:-internal-in-alb-2012640406.us-east-1.elb.amazonaws.com}
     # No depends_on — Frontend ASG runs 'docker compose up -d frontend' in isolation.
     # Backend services run on a separate Backend ASG behind the Internal ALB.
     # nginx proxies /api/* to INTERNAL_ALB_DNS; no Docker bridge dependency needed.

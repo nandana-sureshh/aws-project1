@@ -38,19 +38,19 @@ export const patientApi = {
 
 // ── Doctor ────────────────────────────────────────────────────────────────────
 export const doctorApi = {
-  add:     (data)   => axios.post('/api/doctors', data, withAuth()),
-  getAll:  (params) => axios.get('/api/doctors', { params }),
-  getById: (id)     => axios.get(`/api/doctors/${id}`),
+  add:     (data)   => axios.post('/api/doctors/', data, withAuth()),
+  getAll:  (params) => axios.get('/api/doctors/', { params }),
+  getById: (id)     => axios.get(`/api/doctors/${id}/`),
 };
 
 // ── Appointment ───────────────────────────────────────────────────────────────
 export const appointmentApi = {
   // Patient
-  book:    (data) => axios.post('/api/appointments', data, withAuth()),
-  getMine: ()     => axios.get('/api/appointments/me', withAuth()),
-  cancel:  (id)   => axios.patch(`/api/appointments/${id}/cancel`, {}, withAuth()),
+  book:    (data) => axios.post('/api/appointments/', data, withAuth()),
+  getMine: ()     => axios.get('/api/appointments/me/', withAuth()),
+  cancel:  (id)   => axios.patch(`/api/appointments/${id}/cancel/`, {}, withAuth()),
   // Doctor
   getDoctorAppointments: () => axios.get('/api/appointments/doctor/mine', withAuth()),
-  accept:  (id)  => axios.patch(`/api/appointments/${id}/accept`, {}, withAuth()),
-  reject:  (id)  => axios.patch(`/api/appointments/${id}/reject`, {}, withAuth()),
+  accept:  (id)  => axios.patch(`/api/appointments/${id}/accept/`, {}, withAuth()),
+  reject:  (id)  => axios.patch(`/api/appointments/${id}/reject/`, {}, withAuth()),
 };
