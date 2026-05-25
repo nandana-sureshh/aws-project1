@@ -77,16 +77,14 @@ services:
     environment:
       PORT: "4001"
       NODE_ENV: production
-      MONGO_URI: mongodb://mongo:27017/authdb
+      MONGO_URI: mongodb://10.1.31.35:27017/authdb
       JWT_SECRET: ${JWT_SECRET:-change_this_to_a_strong_random_secret_in_production}
       JWT_EXPIRES_IN: "7d"
       # Comma-separated list of allowed browser origins.
       # Set to your External ALB DNS on production EC2 instances.
       # Example: ALLOWED_ORIGINS=http://external-caresync-alb-xyz.us-east-1.elb.amazonaws.com
       ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://localhost:8080}
-    depends_on:
-      mongo:
-        condition: service_healthy
+   
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost:4001/health"]
       interval: 15s
@@ -108,13 +106,11 @@ services:
     environment:
       PORT: "4002"
       NODE_ENV: production
-      MONGO_URI: mongodb://mongo:27017/patientdb
+      MONGO_URI: mongodb://10.1.31.35:27017/patientdb
       JWT_SECRET: ${JWT_SECRET:-change_this_to_a_strong_random_secret_in_production}
       AUTH_SERVICE_URL: http://auth-service:4001
       ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://localhost:8080}
-    depends_on:
-      mongo:
-        condition: service_healthy
+    
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost:4002/health"]
       interval: 15s
@@ -136,13 +132,11 @@ services:
     environment:
       PORT: "4003"
       NODE_ENV: production
-      MONGO_URI: mongodb://mongo:27017/doctordb
+      MONGO_URI: mongodb://10.1.31.35:27017/doctordb
       JWT_SECRET: ${JWT_SECRET:-change_this_to_a_strong_random_secret_in_production}
       AUTH_SERVICE_URL: http://auth-service:4001
       ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://localhost:8080}
-    depends_on:
-      mongo:
-        condition: service_healthy
+   
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost:4003/health"]
       interval: 15s
@@ -164,15 +158,13 @@ services:
     environment:
       PORT: "4004"
       NODE_ENV: production
-      MONGO_URI: mongodb://mongo:27017/appointmentdb
+      MONGO_URI: mongodb://10.1.31.35:27017/appointmentdb
       JWT_SECRET: ${JWT_SECRET:-change_this_to_a_strong_random_secret_in_production}
       AUTH_SERVICE_URL: http://auth-service:4001
       PATIENT_SERVICE_URL: http://patient-service:4002
       DOCTOR_SERVICE_URL: http://doctor-service:4003
       ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://localhost:8080}
-    depends_on:
-      mongo:
-        condition: service_healthy
+    
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost:4004/health"]
       interval: 15s
